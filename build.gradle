@@ -1,0 +1,38 @@
+plugins {
+  id 'java'
+}
+
+group 'by.zadziarnouski'
+version '1.0-SNAPSHOT'
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  testImplementation platform('org.junit:junit-bom:5.9.0')
+  testImplementation 'org.junit.jupiter:junit-jupiter'
+  testImplementation 'ch.qos.logback:logback-classic:1.2.11'
+  testImplementation 'org.slf4j:log4j-over-slf4j:1.7.36'
+  testImplementation "org.mockito:mockito-core:${mockitoVersion}"
+  testImplementation "org.mockito:mockito-junit-jupiter:${mockitoVersion}"
+
+  annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+  compileOnly "org.projectlombok:lombok:${lombokVersion}"
+  testAnnotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+  testCompileOnly "org.projectlombok:lombok:${lombokVersion}"
+}
+
+
+test {
+  testLogging {
+    events "passed", "skipped", "failed"
+  }
+  useJUnitPlatform {
+//    includeTags("fast", "smoke & feature-a")
+//     excludeTags("slow", "ci")
+    includeEngines("junit-jupiter")
+     excludeEngines("junit-vintage")
+  }
+}
+
